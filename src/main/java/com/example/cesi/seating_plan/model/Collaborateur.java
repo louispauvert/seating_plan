@@ -45,7 +45,7 @@ public class Collaborateur {
     @Override
     public String toString() {
         return "Collaborateur{" +
-                "id=" + id +
+                "id=" + String.valueOf(id) +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", date_arrive=" + date_arrive +
