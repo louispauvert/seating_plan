@@ -13,10 +13,6 @@ import java.sql.SQLException;
 @Transactional
 public class CollaborateurDAO extends DAO<Collaborateur> {
 
-    public CollaborateurDAO(Connection conn) {
-        super(conn);
-    }
-
     @Override
     public boolean create(Collaborateur obj) {
         return false;

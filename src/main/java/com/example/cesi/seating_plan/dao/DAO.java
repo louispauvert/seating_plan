@@ -7,10 +7,6 @@ import java.sql.Connection;
 public abstract class DAO<T> {
     public Connection connect = ConnectionMysql.getInstance();
 
-    public DAO(Connection conn){
-        this.connect = conn;
-    }
-
     /**
      * Méthode de création
      * @param obj
