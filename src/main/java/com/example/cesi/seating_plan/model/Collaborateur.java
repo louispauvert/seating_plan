@@ -23,6 +23,16 @@ public class Collaborateur {
         this.email = email;
     }
 
+    public Collaborateur(long id, String nom, String prenom, Date date_arrive, Date date_depart, String email, String mdp) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.date_arrive = date_arrive;
+        this.date_depart = date_depart;
+        this.email = email;
+        this.mdp = mdp;
+    }
+
     public Collaborateur(String nom, String prenom, Date date_arrive, Date date_depart, String email, String mdp) {
         this.nom = nom;
         this.prenom = prenom;
