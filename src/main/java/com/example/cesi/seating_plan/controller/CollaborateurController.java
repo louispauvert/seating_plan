@@ -13,7 +13,8 @@ public class CollaborateurController {
     CollaborateurDAO collaborateurDAO = new CollaborateurDAO();
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
-    public String findOne(@PathVariable long id){
+    public String findOne(@PathVariable("id") long id){
+
         return collaborateurDAO.find(id).toString();
     }
 }

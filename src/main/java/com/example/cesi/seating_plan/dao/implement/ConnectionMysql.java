@@ -13,11 +13,11 @@ public class ConnectionMysql {
     /**
      * Nom du user
      */
-    private static String user = "userplan";
+    private static String user = "testuser";
     /**
      * Mot de passe du user
      */
-    private static String passwd = "userplan";
+    private static String passwd = "testuser";
     /**
      * Objet Connection
      */

@@ -35,7 +35,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Collaborateur WHERE id = " + id);
+                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM Collaborateur WHERE id = " + String.valueOf(id));
             if(result.first())
                 collaborateur = new Collaborateur(
                         id,
