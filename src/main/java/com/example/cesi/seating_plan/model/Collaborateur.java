@@ -1,7 +1,5 @@
 package com.example.cesi.seating_plan.model;
 
-import org.springframework.context.annotation.Bean;
-
 import java.util.Date;
 
 public class Collaborateur {
