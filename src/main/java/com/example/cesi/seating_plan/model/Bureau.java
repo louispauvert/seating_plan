@@ -1,9 +1,13 @@
 package com.example.cesi.seating_plan.model;
 
+import java.awt.*;
+
 public class Bureau {
     private long id;
 
     private long id_collab;
+
+    private List listMateriel;
 
     public long getId() {
         return id;
