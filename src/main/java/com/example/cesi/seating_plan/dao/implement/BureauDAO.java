@@ -69,17 +69,20 @@ public class BureauDAO extends DAO<Bureau> {
             if(result.first())
                 bureau = new Bureau(
                         id,
-                        result.getLong("id_collab")
+                        result.getLong("id_collab"),
+                        result.getInt("num_interne"),
+                        result.getInt("num_externe")
                 );
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return bureau;
     }
+
     public List<Bureau> findall() {
         List<Bureau> bureauList = new LinkedList<>();
 
-        Bureau bureau = new Bureau();
+        Bureau bureau;
 
         try {
             ResultSet result = this.connect.createStatement(
@@ -88,7 +91,9 @@ public class BureauDAO extends DAO<Bureau> {
             while (result.next()) {
                 bureau = new Bureau(
                         result.getLong("id"),
-                        result.getLong("id_collab")
+                        result.getLong("id_collab"),
+                        result.getInt("num_interne"),
+                        result.getInt("num_externe")
                 );
 
                 bureauList.add(bureau);

@@ -15,9 +15,9 @@ public class CollaborateurController {
 
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
-    public String findOne(@PathVariable("id") Long id){
+    public String findOne(@PathVariable("id") long id){
 
-        return collaborateurDAO.find(id).toString();
+        return collaborateurDAO.find(id).getNom();
     }
 
     @RequestMapping(value = "/id/all", method = RequestMethod.GET)

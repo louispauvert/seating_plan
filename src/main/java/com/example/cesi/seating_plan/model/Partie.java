@@ -5,16 +5,9 @@ public class Partie {
 
     private String libelle;
 
+
     public long getId() {
         return id;
-    }
-
-    @Override
-    public String toString() {
-        return "Partie{" +
-                "id=" + id +
-                ", libelle='" + libelle + '\'' +
-                '}';
     }
 
     public void setId(long id) {
@@ -25,8 +18,10 @@ public class Partie {
         this.libelle = libelle;
     }
 
-    public String getLibelle() {
-        return libelle;
+    public String getLibelle() { return libelle; }
+
+
+    public Partie() {
 
     }
 
@@ -39,5 +34,14 @@ public class Partie {
 
         this.id = id;
         this.libelle = libelle;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Partie{" +
+                "id=" + id +
+                ", libelle='" + libelle + '\'' +
+                '}';
     }
 }

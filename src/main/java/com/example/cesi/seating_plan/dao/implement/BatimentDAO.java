@@ -48,7 +48,7 @@ public class BatimentDAO extends DAO<Batiment> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE batiment SET libelle = "+obj.getLibelle()+"WHERE id = "+String.valueOf(obj.getId())) ;
+                    ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE batiment SET libelle = "+obj.getLibelle()+" WHERE id = "+String.valueOf(obj.getId())) ;
 
             return result.rowUpdated();
 
@@ -60,7 +60,7 @@ public class BatimentDAO extends DAO<Batiment> {
 
     @Override
     public Batiment find(long id) {
-        Batiment batiment = new Batiment("");
+        Batiment batiment = new Batiment();
 
         try {
             ResultSet result = this.connect.createStatement(
@@ -76,10 +76,11 @@ public class BatimentDAO extends DAO<Batiment> {
         }
         return batiment;
     }
+
     public List<Batiment> findall() {
         List<Batiment> batimentList = new LinkedList<>();
 
-        Batiment batiment = new Batiment("");
+        Batiment batiment;
 
         try {
             ResultSet result = this.connect.createStatement(

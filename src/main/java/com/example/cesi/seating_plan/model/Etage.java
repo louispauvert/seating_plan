@@ -9,14 +9,6 @@ public class Etage {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "Etage{" +
-                "id=" + id +
-                ", libelle='" + libelle + '\'' +
-                '}';
-    }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -25,8 +17,10 @@ public class Etage {
         this.libelle = libelle;
     }
 
-    public String getLibelle() {
-        return libelle;
+    public String getLibelle() { return libelle;    }
+
+
+    public Etage() {
 
     }
 
@@ -39,5 +33,13 @@ public class Etage {
 
         this.id = id;
         this.libelle = libelle;
+    }
+
+    @Override
+    public String toString() {
+        return "Etage{" +
+                "id=" + id +
+                ", libelle='" + libelle + '\'' +
+                '}';
     }
 }

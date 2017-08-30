@@ -5,17 +5,6 @@ public class Batiment {
 
     private String libelle;
 
-    public long getId() {
-        return id;
-    }
-
-    @Override
-    public String toString() {
-        return "Batiment{" +
-                "id=" + id +
-                ", libelle='" + libelle + '\'' +
-                '}';
-    }
 
     public void setId(long id) {
         this.id = id;
@@ -27,9 +16,11 @@ public class Batiment {
 
     public String getLibelle() {
         return libelle;
-
     }
 
+
+    public Batiment() {
+    }
 
     public Batiment(String libelle) {
 
@@ -40,5 +31,17 @@ public class Batiment {
 
         this.id = id;
         this.libelle = libelle;
+    }
+    public long getId() {
+        return id;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Batiment{" +
+                "id=" + id +
+                ", libelle='" + libelle + '\'' +
+                '}';
     }
 }

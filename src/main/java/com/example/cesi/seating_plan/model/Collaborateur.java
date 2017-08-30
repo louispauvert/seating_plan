@@ -17,45 +17,7 @@ public class Collaborateur {
 
     private String mdp;
 
-    public Collaborateur(String nom, String prenom, String email) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-    }
 
-    public Collaborateur(long id, String nom, String prenom, Date date_arrive, Date date_depart, String email, String mdp) {
-        this.id = id;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.date_arrive = date_arrive;
-        this.date_depart = date_depart;
-        this.email = email;
-        this.mdp = mdp;
-    }
-
-    public Collaborateur(String nom, String prenom, Date date_arrive, Date date_depart, String email, String mdp) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.date_arrive = date_arrive;
-        this.date_depart = date_depart;
-        this.email = email;
-        this.mdp = mdp;
-    }
-
-    @Override
-    public String toString() {
-        return "Collaborateur{" +
-                "id='" + String.valueOf(id) + '\'' +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", date_arrive=" + date_arrive +
-                ", date_depart=" + date_depart +
-                ", email='" + email + '\'' +
-                ", mdp='" + mdp + '\'' +
-                '}';
-    }
-
-    protected Collaborateur(){};
 
     public long getId() {
         return id;
@@ -111,5 +73,46 @@ public class Collaborateur {
 
     public void setMdp(String mdp) {
         this.mdp = mdp;
+    }
+
+
+    public Collaborateur(){};
+
+    public Collaborateur(String nom, String prenom, String email) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+    }
+
+    public Collaborateur(long id, String nom, String prenom, Date date_arrive, Date date_depart, String email, String mdp) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.date_arrive = date_arrive;
+        this.date_depart = date_depart;
+        this.email = email;
+        this.mdp = mdp;
+    }
+
+    public Collaborateur(String nom, String prenom, Date date_arrive, Date date_depart, String email, String mdp) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.date_arrive = date_arrive;
+        this.date_depart = date_depart;
+        this.email = email;
+        this.mdp = mdp;
+    }
+
+    @Override
+    public String toString() {
+        return "Collaborateur{" +
+                //"id='" + String.valueOf(id) + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", date_arrive=" + date_arrive +
+                ", date_depart=" + date_depart +
+                ", email='" + email + '\'' +
+                ", mdp='" + mdp + '\'' +
+                '}';
     }
 }

@@ -5,16 +5,9 @@ public class Type {
 
     private String libelle;
 
+
     public long getId() {
         return id;
-    }
-
-    @Override
-    public String toString() {
-        return "Type{" +
-                "id=" + id +
-                ", libelle='" + libelle + '\'' +
-                '}';
     }
 
     public void setId(long id) {
@@ -25,13 +18,14 @@ public class Type {
         this.libelle = libelle;
     }
 
-    public String getLibelle() {
-        return libelle;
+    public String getLibelle() { return libelle; }
+
+
+    public Type() {
 
     }
 
     public Type(String libelle) {
-
         this.libelle = libelle;
     }
 
@@ -39,5 +33,14 @@ public class Type {
 
         this.id = id;
         this.libelle = libelle;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Type{" +
+                "id=" + id +
+                ", libelle='" + libelle + '\'' +
+                '}';
     }
 }
