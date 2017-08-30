@@ -9,6 +9,10 @@ public class Bureau {
 
     private List listMateriel;
 
+    public Bureau() {
+
+    }
+
     public long getId() {
         return id;
     }

@@ -38,7 +38,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM collaborateur WHERE id = " + String.valueOf(obj.getId()));
 
-            return result.rowInserted();
+            return result.rowDeleted();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,7 +51,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE collaborateur SET nom = "+obj.getNom()+", prenom = "+obj.getPrenom()+", date_arrive = "+obj.getDate_arrive()+", date_depart = "+ obj.getDate_depart()+", email = "+ obj.getEmail()+", mdp = "+ obj.getMdp()) ;
+                    ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE collaborateur SET nom = "+obj.getNom()+", prenom = "+obj.getPrenom()+", date_arrive = "+obj.getDate_arrive()+", date_depart = "+ obj.getDate_depart()+", email = "+ obj.getEmail()+", mdp = "+ obj.getMdp()+"WHERE id = "+ String.valueOf(obj.getId())) ;
 
             return result.rowUpdated();
 

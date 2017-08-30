@@ -30,6 +30,7 @@ public class Batiment {
 
     }
 
+
     public Batiment(String libelle) {
 
         this.libelle = libelle;
