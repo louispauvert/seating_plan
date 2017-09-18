@@ -14,7 +14,7 @@ public class MaterielDAO extends DAO<Materiel> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO materiel (libelle, nombre, id_type) VALUES ("+obj.getLibelle()+", "+obj.getNombre()+", "+obj.getId_type()+")") ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("INSERT INTO materiel (libelle, nombre, id_type) VALUES ("+obj.getLibelle()+", "+obj.getNombre()+", "+obj.getId_type()+")") ;
 
             return result.rowInserted();
 
@@ -29,7 +29,7 @@ public class MaterielDAO extends DAO<Materiel> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM materiel WHERE id = " + String.valueOf(obj.getId()));
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("DELETE FROM materiel WHERE id = " + String.valueOf(obj.getId()));
 
             return result.rowDeleted();
 
@@ -44,7 +44,7 @@ public class MaterielDAO extends DAO<Materiel> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE materiel SET libelle = "+obj.getLibelle()+", nombre = "+obj.getNombre()+",id_type = "+obj.getId_type()+" WHERE id = "+ String.valueOf(obj.getId())) ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("UPDATE materiel SET libelle = "+obj.getLibelle()+", nombre = "+obj.getNombre()+",id_type = "+obj.getId_type()+" WHERE id = "+ String.valueOf(obj.getId())) ;
 
             return result.rowUpdated();
 

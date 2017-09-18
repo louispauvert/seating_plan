@@ -14,7 +14,7 @@ public class TypeDAO extends DAO<Type> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO type (libelle) VALUES ("+obj.getLibelle()+")") ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("INSERT INTO type (libelle) VALUES ("+obj.getLibelle()+")") ;
 
             return result.rowInserted();
 
@@ -29,7 +29,7 @@ public class TypeDAO extends DAO<Type> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM type WHERE id = " + String.valueOf(obj.getId()));
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("DELETE FROM type WHERE id = " + String.valueOf(obj.getId()));
 
             return result.rowDeleted();
 
@@ -44,7 +44,7 @@ public class TypeDAO extends DAO<Type> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE type SET libelle = "+obj.getLibelle()+" WHERE id = "+ String.valueOf(obj.getId())) ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("UPDATE type SET libelle = "+obj.getLibelle()+" WHERE id = "+ String.valueOf(obj.getId())) ;
 
             return result.rowUpdated();
 

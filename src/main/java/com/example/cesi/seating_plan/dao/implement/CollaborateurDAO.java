@@ -21,7 +21,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO collaborateur (nom, prenom, date_arrive, date_depart, email, mdp) VALUES ("+obj.getNom()+", "+obj.getPrenom()+", "+obj.getDate_arrive()+", "+obj.getDate_depart()+", "+obj.getEmail()+", "+obj.getMdp()+")") ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("INSERT INTO collaborateur (nom, prenom, date_arrive, date_depart, email, mdp) VALUES ("+obj.getNom()+", "+obj.getPrenom()+", "+obj.getDate_arrive()+", "+obj.getDate_depart()+", "+obj.getEmail()+", "+obj.getMdp()+")") ;
 
             return result.rowInserted();
 
@@ -36,7 +36,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM collaborateur WHERE id = " + String.valueOf(obj.getId()));
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("DELETE FROM collaborateur WHERE id = " + String.valueOf(obj.getId()));
 
             return result.rowDeleted();
 
@@ -51,7 +51,7 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE collaborateur SET nom = "+obj.getNom()+", prenom = "+obj.getPrenom()+", date_arrive = "+obj.getDate_arrive()+", date_depart = "+ obj.getDate_depart()+", email = "+ obj.getEmail()+", mdp = "+ obj.getMdp()+" WHERE id = "+ String.valueOf(obj.getId())) ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("UPDATE collaborateur SET nom = "+obj.getNom()+", prenom = "+obj.getPrenom()+", date_arrive = "+obj.getDate_arrive()+", date_depart = "+ obj.getDate_depart()+", email = "+ obj.getEmail()+", mdp = "+ obj.getMdp()+" WHERE id = "+ String.valueOf(obj.getId())) ;
 
             return result.rowUpdated();
 

@@ -18,7 +18,7 @@ public class BatimentDAO extends DAO<Batiment> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO batiment (libelle) VALUES ("+obj.getLibelle()+")") ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("INSERT INTO batiment (libelle) VALUES ("+obj.getLibelle()+")") ;
 
             return result.rowInserted();
 
@@ -33,7 +33,7 @@ public class BatimentDAO extends DAO<Batiment> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM batiment WHERE id = " + String.valueOf(obj.getId()));
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("DELETE FROM batiment WHERE id = " + String.valueOf(obj.getId()));
 
             return result.rowDeleted();
 
@@ -48,7 +48,7 @@ public class BatimentDAO extends DAO<Batiment> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE batiment SET libelle = "+obj.getLibelle()+" WHERE id = "+String.valueOf(obj.getId())) ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("UPDATE batiment SET libelle = "+obj.getLibelle()+" WHERE id = "+String.valueOf(obj.getId())) ;
 
             return result.rowUpdated();
 

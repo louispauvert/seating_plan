@@ -18,7 +18,7 @@ public class BureauDAO extends DAO<Bureau> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO bureau (id_collab) VALUES ("+obj.getId_collab()+")") ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("INSERT INTO bureau (id_collab) VALUES ("+obj.getId_collab()+")") ;
 
             return result.rowInserted();
 
@@ -33,7 +33,7 @@ public class BureauDAO extends DAO<Bureau> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM bureau WHERE id = " + String.valueOf(obj.getId()));
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("DELETE FROM bureau WHERE id = " + String.valueOf(obj.getId()));
 
             return result.rowDeleted();
 
@@ -48,7 +48,7 @@ public class BureauDAO extends DAO<Bureau> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE bureau SET id_collab = "+obj.getId_collab()+" WHERE id = "+ String.valueOf(obj.getId())) ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("UPDATE bureau SET id_collab = "+obj.getId_collab()+" WHERE id = "+ String.valueOf(obj.getId())) ;
 
             return result.rowUpdated();
 

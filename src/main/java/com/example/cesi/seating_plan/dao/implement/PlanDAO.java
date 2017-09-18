@@ -14,7 +14,7 @@ public class PlanDAO extends DAO<Plan> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO plan (libelle, version) VALUES ("+obj.getLibelle()+","+obj.getVersion()+")") ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("INSERT INTO plan (libelle, version) VALUES ("+obj.getLibelle()+","+obj.getVersion()+")") ;
 
             return result.rowInserted();
 
@@ -29,7 +29,7 @@ public class PlanDAO extends DAO<Plan> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM plan WHERE id = " + String.valueOf(obj.getId()));
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("DELETE FROM plan WHERE id = " + String.valueOf(obj.getId()));
 
             return result.rowDeleted();
 
@@ -44,7 +44,7 @@ public class PlanDAO extends DAO<Plan> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE plan SET libelle = "+obj.getLibelle()+", version = "+obj.getVersion()+" WHERE id = "+ String.valueOf(obj.getId())) ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("UPDATE plan SET libelle = "+obj.getLibelle()+", version = "+obj.getVersion()+" WHERE id = "+ String.valueOf(obj.getId())) ;
 
             return result.rowUpdated();
 

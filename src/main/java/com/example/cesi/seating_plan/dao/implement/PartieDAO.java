@@ -14,7 +14,7 @@ public class PartieDAO extends DAO<Partie> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO partie (libelle) VALUES ("+obj.getLibelle()+")") ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("INSERT INTO partie (libelle) VALUES ("+obj.getLibelle()+")") ;
 
             return result.rowInserted();
 
@@ -29,7 +29,7 @@ public class PartieDAO extends DAO<Partie> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM partie WHERE id = " + String.valueOf(obj.getId()));
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("DELETE FROM partie WHERE id = " + String.valueOf(obj.getId()));
 
             return result.rowDeleted();
 
@@ -44,7 +44,7 @@ public class PartieDAO extends DAO<Partie> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE partie SET libelle = "+obj.getLibelle()+" WHERE id = "+ String.valueOf(obj.getId())) ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("UPDATE partie SET libelle = "+obj.getLibelle()+" WHERE id = "+ String.valueOf(obj.getId())) ;
 
             return result.rowUpdated();
 

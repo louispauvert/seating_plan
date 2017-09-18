@@ -19,7 +19,7 @@ public class EtageDAO extends DAO<Etage> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("INSERT INTO etage (libelle) VALUES ("+obj.getLibelle()+")") ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("INSERT INTO etage (libelle) VALUES ("+obj.getLibelle()+")") ;
 
             return result.rowInserted();
 
@@ -34,7 +34,7 @@ public class EtageDAO extends DAO<Etage> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("DELETE FROM etage WHERE id = " + String.valueOf(obj.getId()));
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("DELETE FROM etage WHERE id = " + String.valueOf(obj.getId()));
 
             return result.rowDeleted();
 
@@ -49,7 +49,7 @@ public class EtageDAO extends DAO<Etage> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("UPDATE etage SET libelle = "+obj.getLibelle()+" WHERE id = "+ String.valueOf(obj.getId())) ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("UPDATE etage SET libelle = "+obj.getLibelle()+" WHERE id = "+ String.valueOf(obj.getId())) ;
 
             return result.rowUpdated();
 
