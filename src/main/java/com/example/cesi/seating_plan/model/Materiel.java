@@ -5,9 +5,10 @@ public class Materiel {
 
     private String libelle;
 
-    private int nombre;
 
     private long id_type;
+
+    private Type type_materiel;
 
 
     public long getId() {
@@ -26,14 +27,6 @@ public class Materiel {
         this.libelle = libelle;
     }
 
-    public int getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(int nombre) {
-        this.nombre = nombre;
-    }
-
     public long getId_type() {
         return id_type;
     }
@@ -42,22 +35,29 @@ public class Materiel {
         this.id_type = id_type;
     }
 
+    public Type getType_materiel() {
+        return type_materiel;
+    }
+
+    public void setType_materiel(Type type_materiel) {
+        this.type_materiel = type_materiel;
+    }
+
 
     public Materiel() {
 
     }
 
-    public Materiel(String libelle, int nombre, long id_type) {
+    public Materiel(String libelle, long id_type, Type type_materiel) {
         this.libelle = libelle;
-        this.nombre = nombre;
         this.id_type = id_type;
+        this.type_materiel = type_materiel;
     }
 
-    public Materiel(long id, String libelle, int nombre, long id_type) {
+    public Materiel(long id, String libelle, long id_type) {
 
         this.id = id;
         this.libelle = libelle;
-        this.nombre = nombre;
         this.id_type = id_type;
     }
 
@@ -66,8 +66,7 @@ public class Materiel {
     public String toString() {
         return "Materiel{" +
                 "id=" + id +
-                ", libelle='" + libelle + '\'' +
-                ", nombre=" + nombre +
+                ", libelle='" + libelle +
                 ", id_type=" + id_type +
                 '}';
     }

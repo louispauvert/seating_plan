@@ -2,11 +2,9 @@ package com.example.cesi.seating_plan.dao.implement;
 
 import com.example.cesi.seating_plan.dao.DAO;
 import com.example.cesi.seating_plan.model.Collaborateur;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;

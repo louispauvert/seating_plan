@@ -14,7 +14,7 @@ public class MaterielDAO extends DAO<Materiel> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE).executeQuery("INSERT INTO materiel (libelle, nombre, id_type) VALUES ("+obj.getLibelle()+", "+obj.getNombre()+", "+obj.getId_type()+")") ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("INSERT INTO materiel (libelle, id_type) VALUES ("+obj.getLibelle()+", "+", "+obj.getId_type()+")") ;
 
             return result.rowInserted();
 
@@ -44,7 +44,7 @@ public class MaterielDAO extends DAO<Materiel> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE).executeQuery("UPDATE materiel SET libelle = "+obj.getLibelle()+", nombre = "+obj.getNombre()+",id_type = "+obj.getId_type()+" WHERE id = "+ String.valueOf(obj.getId())) ;
+                    ResultSet.CONCUR_UPDATABLE).executeQuery("UPDATE materiel SET libelle = "+obj.getLibelle()+", nombre = "+",id_type = "+obj.getId_type()+" WHERE id = "+ String.valueOf(obj.getId())) ;
 
             return result.rowUpdated();
 
@@ -66,7 +66,6 @@ public class MaterielDAO extends DAO<Materiel> {
                 materiel = new Materiel(
                         id,
                         result.getString("libelle"),
-                        result.getInt("nombre"),
                         result.getLong("id_type")
                 );
         } catch (SQLException e) {
@@ -75,7 +74,7 @@ public class MaterielDAO extends DAO<Materiel> {
         return materiel;
     }
 
-    public List<Materiel> findall() {
+    public List<Materiel> findAll() {
         List<Materiel> materielList = new LinkedList<>();
 
         Materiel materiel;
@@ -83,14 +82,48 @@ public class MaterielDAO extends DAO<Materiel> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM materiel");
+                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * " +
+                                                                    "FROM contenir " +
+                                                                    "LEFT JOIN materiel ON contenir.id_four = materiel.id");
             while (result.next()) {
-                materiel = new Materiel(
-                        result.getLong("id"),
-                        result.getString("libelle"),
-                        result.getInt("nombre"),
-                        result.getLong("id_type")
-                );
+                materiel = new Materiel();
+                TypeDAO typeDAO = new TypeDAO();
+
+                materiel.setId(result.getLong("id"));
+                materiel.setLibelle(result.getString("libelle"));
+                materiel.setId_type(result.getLong("id_type"));
+
+                materiel.setType_materiel(typeDAO.find(result.getLong("id_type")));
+
+                materielList.add(materiel);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return materielList;
+    }
+
+    public List<Materiel> findAllByBureauId(long id) {
+        List<Materiel> materielList = new LinkedList<>();
+
+        Materiel materiel;
+
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * " +
+                                                                    "FROM contenir " +
+                                                                    "LEFT JOIN materiel ON contenir.id_four = materiel.id " +
+                                                                    "WHERE contenir.id_bureau = "+String.valueOf(id));
+            while (result.next()) {
+                materiel = new Materiel();
+                TypeDAO typeDAO = new TypeDAO();
+
+                materiel.setId(result.getLong("id"));
+                materiel.setLibelle(result.getString("libelle"));
+                materiel.setId_type(result.getLong("id_type"));
+
+                materiel.setType_materiel(typeDAO.find(result.getLong("id_type")));
 
                 materielList.add(materiel);
             }

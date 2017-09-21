@@ -16,12 +16,12 @@ public class BatimentDAO extends DAO<Batiment> {
     @Override
     public boolean create(Batiment obj) {
         try {
-            ResultSet result = this.connect.createStatement(
+            String test = "INSERT INTO batiment (libelle) VALUES ('"+obj.getLibelle()+"')";
+            int result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE).executeQuery("INSERT INTO batiment (libelle) VALUES ("+obj.getLibelle()+")") ;
+                    ResultSet.CONCUR_UPDATABLE).executeUpdate(test) ;
 
-            return result.rowInserted();
-
+            return result == 1;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -31,11 +31,11 @@ public class BatimentDAO extends DAO<Batiment> {
     @Override
     public boolean delete(Batiment obj) {
         try {
-            ResultSet result = this.connect.createStatement(
+            int result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE).executeQuery("DELETE FROM batiment WHERE id = " + String.valueOf(obj.getId()));
+                    ResultSet.CONCUR_UPDATABLE).executeUpdate("DELETE FROM batiment WHERE id = " + String.valueOf(obj.getId()));
 
-            return result.rowDeleted();
+            return result == 1;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,11 +46,11 @@ public class BatimentDAO extends DAO<Batiment> {
     @Override
     public boolean update(Batiment obj) {
         try {
-            ResultSet result = this.connect.createStatement(
+            int result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE).executeQuery("UPDATE batiment SET libelle = "+obj.getLibelle()+" WHERE id = "+String.valueOf(obj.getId())) ;
+                    ResultSet.CONCUR_UPDATABLE).executeUpdate("UPDATE batiment SET libelle = "+obj.getLibelle()+" WHERE id = "+String.valueOf(obj.getId())) ;
 
-            return result.rowUpdated();
+            return result == 1;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -77,7 +77,7 @@ public class BatimentDAO extends DAO<Batiment> {
         return batiment;
     }
 
-    public List<Batiment> findall() {
+    public List<Batiment> findAll() {
         List<Batiment> batimentList = new LinkedList<>();
 
         Batiment batiment;

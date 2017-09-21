@@ -1,27 +1,36 @@
 package com.example.cesi.seating_plan.controller;
 
 import com.example.cesi.seating_plan.dao.implement.BureauDAO;
+import com.example.cesi.seating_plan.model.Bureau;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ListIterator;
 
 @Controller
 @RequestMapping("/bureau")
 public class BureauController {
-    BureauDAO bureauDAO = new BureauDAO();
+    private BureauDAO bureauDAO = new BureauDAO();
+    private ObjectMapper mapper = new ObjectMapper();
 
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
-    public String findOne(@PathVariable("id") Long id) {
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET, headers="Accept=application/json")
+    public @ResponseBody String findOne(@PathVariable("id") String id) {
 
-        return bureauDAO.find(id).toString();
+        Bureau test;
+        test = bureauDAO.find(Long.valueOf(id));
+
+        try {
+           return mapper.writeValueAsString(test);
+        } catch (JsonProcessingException e) {
+            return e.toString();
+        }
     }
 
     @RequestMapping(value = "/id/all", method = RequestMethod.GET)
     public String findAll(){
-        ListIterator listIterator = bureauDAO.findall().listIterator();
+        ListIterator listIterator = bureauDAO.findAll().listIterator();
 
         String liste = "";
 
@@ -29,5 +38,28 @@ public class BureauController {
             liste = liste.concat(listIterator.next().toString());
         }
         return  liste;
+    }
+
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.DELETE)
+    public @ResponseBody boolean deleteOne(@PathVariable("id") Integer id) {
+        Bureau bureau = new Bureau();
+
+        bureau.setId(id);
+
+        return bureauDAO.delete(bureau);
+    }
+
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.PUT)
+    public @ResponseBody boolean updateOne(@PathVariable("id") Integer id) {
+        Bureau bureau = new Bureau();
+
+        bureau.setId(id);
+
+        return bureauDAO.update(bureau);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public @ResponseBody boolean createOne(@RequestBody Bureau bureau) {
+        return bureauDAO.create(bureau);
     }
 }

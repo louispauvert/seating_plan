@@ -5,24 +5,21 @@ import com.example.cesi.seating_plan.model.Batiment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.parser.Entity;
-import java.io.Console;
 import java.util.ListIterator;
 
 @Controller
 @RequestMapping("/batiment")
 public class BatimentController {
-    BatimentDAO batimentDAO = new BatimentDAO();
+    private BatimentDAO batimentDAO = new BatimentDAO();
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
-    public String findOne(@PathVariable("id") Long id) {
-
+    public @ResponseBody String findOne(@PathVariable("id") Integer id) {
         return batimentDAO.find(id).toString();
     }
 
     @RequestMapping(value = "/id/all", method = RequestMethod.GET)
-    public String findAll(){
-        ListIterator listIterator = batimentDAO.findall().listIterator();
+    public @ResponseBody String findAll(){
+        ListIterator listIterator = batimentDAO.findAll().listIterator();
 
         String liste = "";
 
@@ -33,7 +30,7 @@ public class BatimentController {
     }
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.DELETE)
-    public boolean deleteOne(@PathVariable("id") Long id) {
+    public @ResponseBody boolean deleteOne(@PathVariable("id") Integer id) {
         Batiment batiment = new Batiment();
 
         batiment.setId(id);
@@ -42,7 +39,7 @@ public class BatimentController {
     }
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.PUT)
-    public boolean updateOne(@PathVariable("id") Long id) {
+    public @ResponseBody boolean updateOne(@PathVariable("id") Integer id) {
         Batiment batiment = new Batiment();
 
         batiment.setId(id);
@@ -51,11 +48,7 @@ public class BatimentController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean createOne(@RequestBody String libelle) {
-        Batiment batiment = new Batiment(libelle);
-
-        System.out.println(batiment.toString());
-
+    public @ResponseBody boolean createOne(@RequestBody Batiment batiment) {
         return batimentDAO.create(batiment);
     }
 }

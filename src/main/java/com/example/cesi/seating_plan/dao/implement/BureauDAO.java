@@ -2,6 +2,7 @@ package com.example.cesi.seating_plan.dao.implement;
 
 import com.example.cesi.seating_plan.dao.DAO;
 import com.example.cesi.seating_plan.model.Bureau;
+import com.example.cesi.seating_plan.model.Collaborateur;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -65,21 +66,36 @@ public class BureauDAO extends DAO<Bureau> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM bureau WHERE id = " + String.valueOf(id));
-            if(result.first())
-                bureau = new Bureau(
-                        id,
-                        result.getLong("id_collab"),
-                        result.getInt("num_interne"),
-                        result.getInt("num_externe")
-                );
+                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * " +
+                                                                    "FROM bureau " +
+                                                                    "LEFT JOIN avoir ON bureau.id = avoir.id_bureau " +
+                                                                    "LEFT JOIN contenir ON bureau.id = contenir.id_bureau " +
+                                                                    "WHERE bureau.id = " + String.valueOf(id));
+            if(result.first()){
+                bureau = new Bureau();
+                MaterielDAO materielDAO = new MaterielDAO();
+                CollaborateurDAO collaborateurDAO = new CollaborateurDAO();
+
+                bureau.setId_collab(result.getLong("id_collab"));
+                bureau.setId(result.getLong("id"));
+                bureau.setNum_externe(result.getInt("num_externe"));
+                bureau.setNum_interne(result.getInt("num_interne"));
+                bureau.setAbs(result.getInt("abs"));
+                bureau.setOrd(result.getInt("ord"));
+                bureau.setSens(result.getBoolean("sens"));
+
+                bureau.setListMateriel(materielDAO.findAllByBureauId(id));
+
+                bureau.setCollaborateur(collaborateurDAO.find(result.getLong("id_collab")));
+
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return bureau;
     }
 
-    public List<Bureau> findall() {
+    public List<Bureau> findAll() {
         List<Bureau> bureauList = new LinkedList<>();
 
         Bureau bureau;
@@ -89,12 +105,7 @@ public class BureauDAO extends DAO<Bureau> {
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM bureau");
             while (result.next()) {
-                bureau = new Bureau(
-                        result.getLong("id"),
-                        result.getLong("id_collab"),
-                        result.getInt("num_interne"),
-                        result.getInt("num_externe")
-                );
+                bureau = new Bureau();
 
                 bureauList.add(bureau);
             }

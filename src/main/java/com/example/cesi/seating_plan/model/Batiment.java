@@ -10,6 +10,10 @@ public class Batiment {
         this.id = id;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
@@ -31,9 +35,6 @@ public class Batiment {
 
         this.id = id;
         this.libelle = libelle;
-    }
-    public long getId() {
-        return id;
     }
 
 
