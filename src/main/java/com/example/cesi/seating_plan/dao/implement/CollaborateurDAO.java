@@ -67,16 +67,15 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM collaborateur WHERE id = " + String.valueOf(id));
-            if(result.first())
-                collaborateur = new Collaborateur(
-                        id,
-                        result.getString("nom"),
-                        result.getString("prenom"),
-                        result.getDate("date_arrive"),
-                        result.getDate("date_depart"),
-                        result.getString("email"),
-                        result.getString("mdp")
-                        );
+            if(result.first()){
+                collaborateur.setId(id);
+                collaborateur.setNom(result.getString("nom"));
+                collaborateur.setPrenom(result.getString("prenom"));
+                collaborateur.setDate_arrive(result.getDate("date_arrive"));
+                collaborateur.setDate_depart(result.getDate("date_depart"));
+                collaborateur.setEmail(result.getString("email"));
+                collaborateur.setMdp(result.getString("mdp"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -93,15 +92,15 @@ public class CollaborateurDAO extends DAO<Collaborateur> {
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM collaborateur");
             while (result.next()) {
-                collaborateur = new Collaborateur(
-                        result.getLong("id"),
-                        result.getString("nom"),
-                        result.getString("prenom"),
-                        result.getDate("date_arrive"),
-                        result.getDate("date_depart"),
-                        result.getString("email"),
-                        result.getString("mdp")
-                );
+                collaborateur = new Collaborateur();
+
+                collaborateur.setId(result.getLong("id"));
+                collaborateur.setNom(result.getString("nom"));
+                collaborateur.setPrenom(result.getString("prenom"));
+                collaborateur.setDate_arrive(result.getDate("date_arrive"));
+                collaborateur.setDate_depart(result.getDate("date_depart"));
+                collaborateur.setEmail(result.getString("email"));
+                collaborateur.setMdp(result.getString("mdp"));
 
                 collaborateurList.add(collaborateur);
             }

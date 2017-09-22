@@ -62,12 +62,15 @@ public class MaterielDAO extends DAO<Materiel> {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM materiel WHERE id = " + String.valueOf(id));
-            if(result.first())
-                materiel = new Materiel(
-                        id,
-                        result.getString("libelle"),
-                        result.getLong("id_type")
-                );
+            if(result.first()){
+                TypeDAO typeDAO= new TypeDAO();
+
+                materiel.setType_materiel(typeDAO.find(result.getLong("id_type")));
+
+                materiel.setLibelle(result.getString("libelle"));
+                materiel.setId_type(result.getLong("id_type"));
+                materiel.setId(id);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

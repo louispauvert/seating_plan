@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.ListIterator;
 
 @Controller
@@ -14,6 +15,19 @@ import java.util.ListIterator;
 public class BureauController {
     private BureauDAO bureauDAO = new BureauDAO();
     private ObjectMapper mapper = new ObjectMapper();
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public @ResponseBody String base() {
+
+        return "/bureau/            GET     => liste des commandes \n" +
+               "/bureau/id/1        GET     => affiche le bureau correspondant à id = 1 \n" +
+               "/bureau/id/all      GET     => Affiche tous les bureaux \n" +
+               "/bureau/count/1     GET     => affiche le nombre total de bureau pour le plan correspondant à id = 1 \n" +
+               "/bureau/count/      GET     => affiche le nombre total de bureau \n" +
+               "/bureau/id/1        DELETE  => supprime le bureau correspondant à id = 1 \n" +
+               "/bureau/id/1        PUT     => update le bureau correspondant à id = 1 et renseigner dans le body id_collab peut etre renseigné \n" +
+               "/bureau/            POST    => créer le bureau correspondant renseigner dans le body id_collab peut etre renseigné \n";
+    }
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.GET, headers="Accept=application/json")
     public @ResponseBody String findOne(@PathVariable("id") String id) {
@@ -28,16 +42,15 @@ public class BureauController {
         }
     }
 
-    @RequestMapping(value = "/id/all", method = RequestMethod.GET)
-    public String findAll(){
-        ListIterator listIterator = bureauDAO.findAll().listIterator();
+    @RequestMapping(value = "/id/all", method = RequestMethod.GET, headers="Accept=application/json")
+    public @ResponseBody String findAll(){
+        List<Bureau> bureauList = bureauDAO.findAll();
 
-        String liste = "";
-
-        while (listIterator.hasNext()){
-            liste = liste.concat(listIterator.next().toString());
+        try {
+            return mapper.writeValueAsString(bureauList);
+        } catch (JsonProcessingException e) {
+            return e.toString();
         }
-        return  liste;
     }
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.DELETE)
@@ -50,8 +63,7 @@ public class BureauController {
     }
 
     @RequestMapping(value = "/id/{id}", method = RequestMethod.PUT)
-    public @ResponseBody boolean updateOne(@PathVariable("id") Integer id) {
-        Bureau bureau = new Bureau();
+    public @ResponseBody boolean updateOne(@PathVariable("id") Integer id,@RequestBody Bureau bureau) {
 
         bureau.setId(id);
 

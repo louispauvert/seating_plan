@@ -32,11 +32,9 @@ public class BureauDAO extends DAO<Bureau> {
     @Override
     public boolean delete(Bureau obj) {
         try {
-            ResultSet result = this.connect.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE).executeQuery("DELETE FROM bureau WHERE id = " + String.valueOf(obj.getId()));
+            int result = this.connect.createStatement().executeUpdate("DELETE FROM bureau WHERE id = " + String.valueOf(obj.getId()));
 
-            return result.rowDeleted();
+            return result == 1;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,11 +45,9 @@ public class BureauDAO extends DAO<Bureau> {
     @Override
     public boolean update(Bureau obj) {
         try {
-            ResultSet result = this.connect.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_UPDATABLE).executeQuery("UPDATE bureau SET id_collab = "+obj.getId_collab()+" WHERE id = "+ String.valueOf(obj.getId())) ;
+            int result = this.connect.createStatement().executeUpdate("UPDATE bureau SET id_collab = "+obj.getId_collab()+" WHERE id = "+ String.valueOf(obj.getId())) ;
 
-            return result.rowUpdated();
+            return result == 1;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,9 +68,9 @@ public class BureauDAO extends DAO<Bureau> {
                                                                     "LEFT JOIN contenir ON bureau.id = contenir.id_bureau " +
                                                                     "WHERE bureau.id = " + String.valueOf(id));
             if(result.first()){
-                bureau = new Bureau();
                 MaterielDAO materielDAO = new MaterielDAO();
                 CollaborateurDAO collaborateurDAO = new CollaborateurDAO();
+                PlanDAO planDAO = new PlanDAO();
 
                 bureau.setId_collab(result.getLong("id_collab"));
                 bureau.setId(result.getLong("id"));
@@ -85,6 +81,8 @@ public class BureauDAO extends DAO<Bureau> {
                 bureau.setSens(result.getBoolean("sens"));
 
                 bureau.setListMateriel(materielDAO.findAllByBureauId(id));
+
+                bureau.setPlan(planDAO.find(result.getLong("id_plan")));
 
                 bureau.setCollaborateur(collaborateurDAO.find(result.getLong("id_collab")));
 
@@ -103,9 +101,10 @@ public class BureauDAO extends DAO<Bureau> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM bureau");
+                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * " +
+                                                                    "FROM bureau ");
             while (result.next()) {
-                bureau = new Bureau();
+                bureau = find(result.getLong("id"));
 
                 bureauList.add(bureau);
             }
@@ -114,6 +113,49 @@ public class BureauDAO extends DAO<Bureau> {
         }
         return bureauList;
     }
+
+    public List<Bureau> findAllByPlan(long id) {
+        List<Bureau> bureauList = new LinkedList<>();
+
+        Bureau bureau;
+
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * " +
+                                                                    "FROM bureau " +
+                                                                    "LEFT JOIN avoir ON bureau.id = avoir.id_bureau " +
+                                                                    "LEFT JOIN contenir ON bureau.id = contenir.id_bureau " +
+                                                                    "WHERE id_plan = "+String.valueOf(id));
+            while (result.next()) {
+                MaterielDAO materielDAO = new MaterielDAO();
+                CollaborateurDAO collaborateurDAO = new CollaborateurDAO();
+                PlanDAO planDAO = new PlanDAO();
+
+                bureau = new Bureau();
+
+                bureau.setId_collab(result.getLong("id_collab"));
+                bureau.setId(result.getLong("id"));
+                bureau.setNum_externe(result.getInt("num_externe"));
+                bureau.setNum_interne(result.getInt("num_interne"));
+                bureau.setAbs(result.getInt("abs"));
+                bureau.setOrd(result.getInt("ord"));
+                bureau.setSens(result.getBoolean("sens"));
+
+                bureau.setListMateriel(materielDAO.findAllByBureauId(result.getLong("id")));
+
+                bureau.setCollaborateur(collaborateurDAO.find(result.getLong("id_collab")));
+
+                bureau.setPlan(planDAO.find(result.getLong("id_plan")));
+
+                bureauList.add(bureau);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bureauList;
+    }
+
     public int count() {
         int nombre = -1;
 

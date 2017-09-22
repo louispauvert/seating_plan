@@ -1,6 +1,7 @@
 package com.example.cesi.seating_plan.dao.implement;
 
 import com.example.cesi.seating_plan.dao.DAO;
+import com.example.cesi.seating_plan.model.Bureau;
 import com.example.cesi.seating_plan.model.Plan;
 
 import java.sql.ResultSet;
@@ -61,13 +62,16 @@ public class PlanDAO extends DAO<Plan> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM partie WHERE id = " + String.valueOf(id));
-            if(result.first())
-                plan = new Plan(
-                        id,
-                        result.getString("libelle"),
-                        result.getInt("version")
-                );
+                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM plan WHERE id = " + String.valueOf(id));
+            if(result.first()){
+                BureauDAO bureauDAO = new BureauDAO();
+
+                plan.setId(result.getLong("id"));
+                plan.setLibelle(result.getString("libelle"));
+                plan.setVersion(result.getInt("version"));
+
+                plan.setBureauList(bureauDAO.findAllByPlan(id));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -82,13 +86,16 @@ public class PlanDAO extends DAO<Plan> {
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM partie");
+                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM plan");
             while (result.next()) {
-                plan = new Plan(
-                        result.getLong("id"),
-                        result.getString("libelle"),
-                        result.getInt("version")
-                );
+                plan = new Plan();
+                BureauDAO bureauDAO = new BureauDAO();
+
+                plan.setId(result.getLong("id"));
+                plan.setLibelle(result.getString("libelle"));
+                plan.setVersion(result.getInt("version"));
+
+                plan.setBureauList(bureauDAO.findAllByPlan(result.getLong("id")));
 
                 partieList.add(plan);
             }

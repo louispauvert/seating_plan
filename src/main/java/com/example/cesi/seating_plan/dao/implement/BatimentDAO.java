@@ -66,11 +66,10 @@ public class BatimentDAO extends DAO<Batiment> {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM batiment WHERE id = " + String.valueOf(id));
-            if(result.first())
-                batiment = new Batiment(
-                        id,
-                        result.getString("libelle")
-                );
+            if(result.first()){
+                batiment.setId(id);
+                batiment.setLibelle(result.getString("libelle"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,10 +86,10 @@ public class BatimentDAO extends DAO<Batiment> {
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM batiment");
             while (result.next()) {
-                batiment = new Batiment(
-                        result.getLong("id"),
-                        result.getString("libelle")
-                );
+                batiment = new Batiment();
+
+                batiment.setId(result.getLong("id"));
+                batiment.setLibelle(result.getString("libelle"));
 
                 batimentList.add(batiment);
             }

@@ -62,11 +62,10 @@ public class PartieDAO extends DAO<Partie> {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM partie WHERE id = " + String.valueOf(id));
-            if(result.first())
-                partie = new Partie(
-                        id,
-                        result.getString("libelle")
-                );
+            if(result.first()){
+                partie.setId(id);
+                partie.setLibelle(result.getString("libelle"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,10 +82,10 @@ public class PartieDAO extends DAO<Partie> {
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM partie");
             while (result.next()) {
-                partie = new Partie(
-                        result.getLong("id"),
-                        result.getString("libelle")
-                );
+                partie = new Partie();
+
+                partie.setId(result.getLong("id"));
+                partie.setLibelle(result.getString("libelle"));
 
                 partieList.add(partie);
             }

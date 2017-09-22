@@ -67,11 +67,10 @@ public class EtageDAO extends DAO<Etage> {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM etage WHERE id = " + String.valueOf(id));
-            if(result.first())
-                etage = new Etage(
-                        id,
-                        result.getString("libelle")
-                );
+            if(result.first()){
+                etage.setId(id);
+                etage.setLibelle(result.getString("libelle"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -88,10 +87,10 @@ public class EtageDAO extends DAO<Etage> {
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM etage");
             while (result.next()) {
-                etage = new Etage(
-                        result.getLong("id"),
-                        result.getString("libelle")
-                );
+                etage = new Etage();
+
+                etage.setId(result.getLong("id"));
+                etage.setLibelle(result.getString("libelle"));
 
                 etageList.add(etage);
             }

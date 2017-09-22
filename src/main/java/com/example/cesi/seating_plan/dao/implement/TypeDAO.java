@@ -62,11 +62,10 @@ public class TypeDAO extends DAO<Type> {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM type WHERE id = " + String.valueOf(id));
-            if(result.first())
-                type = new Type(
-                        id,
-                        result.getString("libelle")
-                );
+            if(result.first()){
+                type.setId(id);
+                type.setLibelle(result.getString("libelle"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,10 +82,10 @@ public class TypeDAO extends DAO<Type> {
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT * FROM type");
             while (result.next()) {
-                type = new Type(
-                        result.getLong("id"),
-                        result.getString("libelle")
-                );
+                type = new Type();
+
+                type.setId(result.getLong("id"));
+                type.setLibelle(result.getString("libelle"));
 
                 typeList.add(type);
             }
