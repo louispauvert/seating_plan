@@ -6,6 +6,7 @@ public class Type {
     private String libelle;
 
 
+
     public long getId() {
         return id;
     }
@@ -21,19 +22,11 @@ public class Type {
     public String getLibelle() { return libelle; }
 
 
+
     public Type() {
 
     }
 
-    public Type(String libelle) {
-        this.libelle = libelle;
-    }
-
-    public Type(long id, String libelle) {
-
-        this.id = id;
-        this.libelle = libelle;
-    }
 
 
     @Override

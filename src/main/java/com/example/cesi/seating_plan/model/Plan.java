@@ -1,11 +1,16 @@
 package com.example.cesi.seating_plan.model;
 
+import java.util.List;
+
 public class Plan {
     private long id;
 
     private String libelle;
 
     private int version;
+
+    private List<Bureau> bureauList;
+
 
 
     public long getId() {
@@ -30,21 +35,20 @@ public class Plan {
 
     public int getVersion() { return version; }
 
-
-    public Plan(long id, String libelle, int version) {
-        this.id = id;
-        this.libelle = libelle;
-        this.version = version;
+    public List<Bureau> getBureauList() {
+        return bureauList;
     }
+
+    public void setBureauList(List<Bureau> bureauList) {
+        this.bureauList = bureauList;
+    }
+
+
 
     public Plan() {
 
     }
 
-    public Plan(String libelle, int version) {
-        this.libelle = libelle;
-        this.version = version;
-    }
 
 
     @Override
@@ -53,6 +57,7 @@ public class Plan {
                 "id=" + id +
                 ", libelle='" + libelle + '\'' +
                 ", version=" + version +
+                ", bureauList=" + bureauList +
                 '}';
     }
 }

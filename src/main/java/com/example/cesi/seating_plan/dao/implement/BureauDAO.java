@@ -114,4 +114,35 @@ public class BureauDAO extends DAO<Bureau> {
         }
         return bureauList;
     }
+    public int count() {
+        int nombre = -1;
+
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT COUNT(*) AS 'nombre' FROM bureau");
+            if(result.first()){
+                nombre = result.getInt("nombre");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nombre;
+    }
+
+    public int countByPlan(long id) {
+        int nombre = -1;
+
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY).executeQuery("SELECT COUNT(*) AS 'nombre' FROM avoir WHERE avoir.id_plan= "+String.valueOf(id));
+            if(result.first()){
+                nombre = result.getInt("nombre");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nombre;
+    }
 }

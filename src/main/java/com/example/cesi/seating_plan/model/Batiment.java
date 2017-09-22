@@ -6,6 +6,7 @@ public class Batiment {
     private String libelle;
 
 
+
     public void setId(long id) {
         this.id = id;
     }
@@ -23,19 +24,10 @@ public class Batiment {
     }
 
 
+
     public Batiment() {
     }
 
-    public Batiment(String libelle) {
-
-        this.libelle = libelle;
-    }
-
-    public Batiment(long id, String libelle) {
-
-        this.id = id;
-        this.libelle = libelle;
-    }
 
 
     @Override

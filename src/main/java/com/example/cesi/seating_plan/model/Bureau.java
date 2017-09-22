@@ -22,6 +22,8 @@ public class Bureau {
 
     private Collaborateur collaborateur;
 
+    private Plan plan;
+
 
 
     public long getId() {
@@ -96,35 +98,19 @@ public class Bureau {
         this.collaborateur = collaborateur;
     }
 
-
-
-    public Bureau(long id, long id_collab, List<Materiel> listMateriel, int num_interne, int num_externe, int abs, int ord, boolean sens, Collaborateur collaborateur) {
-        this.id = id;
-        this.id_collab = id_collab;
-        this.listMateriel = listMateriel;
-        this.num_interne = num_interne;
-        this.num_externe = num_externe;
-        this.abs = abs;
-        this.ord = ord;
-        this.sens = sens;
-        this.collaborateur = collaborateur;
+    public Plan getPlan() {
+        return plan;
     }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
+    }
+
+
 
     public Bureau() {
     }
 
-    public Bureau(long id, int num_interne, int num_externe, Collaborateur collaborateur) {
-        this.id = id;
-        this.num_interne = num_interne;
-        this.num_externe = num_externe;
-        this.collaborateur = collaborateur;
-    }
-
-    public Bureau(int num_interne, int num_externe, Collaborateur collaborateur) {
-        this.num_interne = num_interne;
-        this.num_externe = num_externe;
-        this.collaborateur = collaborateur;
-    }
 
 
     @Override
@@ -138,6 +124,8 @@ public class Bureau {
                 ", abs=" + abs +
                 ", ord=" + ord +
                 ", sens=" + sens +
+                ", collaborateur=" + collaborateur +
+                ", plan=" + plan +
                 '}';
     }
 }

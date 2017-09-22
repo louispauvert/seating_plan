@@ -6,6 +6,7 @@ public class Partie {
     private String libelle;
 
 
+
     public long getId() {
         return id;
     }
@@ -21,20 +22,11 @@ public class Partie {
     public String getLibelle() { return libelle; }
 
 
+
     public Partie() {
 
     }
 
-    public Partie(String libelle) {
-
-        this.libelle = libelle;
-    }
-
-    public Partie(long id, String libelle) {
-
-        this.id = id;
-        this.libelle = libelle;
-    }
 
 
     @Override

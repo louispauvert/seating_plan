@@ -5,6 +5,8 @@ public class Etage {
 
     private String libelle;
 
+
+
     public long getId() {
         return id;
     }
@@ -20,20 +22,12 @@ public class Etage {
     public String getLibelle() { return libelle;    }
 
 
+
     public Etage() {
 
     }
 
-    public Etage(String libelle) {
 
-        this.libelle = libelle;
-    }
-
-    public Etage(long id, String libelle) {
-
-        this.id = id;
-        this.libelle = libelle;
-    }
 
     @Override
     public String toString() {

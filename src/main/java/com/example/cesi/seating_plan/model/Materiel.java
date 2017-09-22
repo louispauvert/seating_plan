@@ -5,10 +5,10 @@ public class Materiel {
 
     private String libelle;
 
-
     private long id_type;
 
     private Type type_materiel;
+
 
 
     public long getId() {
@@ -44,22 +44,11 @@ public class Materiel {
     }
 
 
+
     public Materiel() {
 
     }
 
-    public Materiel(String libelle, long id_type, Type type_materiel) {
-        this.libelle = libelle;
-        this.id_type = id_type;
-        this.type_materiel = type_materiel;
-    }
-
-    public Materiel(long id, String libelle, long id_type) {
-
-        this.id = id;
-        this.libelle = libelle;
-        this.id_type = id_type;
-    }
 
 
     @Override

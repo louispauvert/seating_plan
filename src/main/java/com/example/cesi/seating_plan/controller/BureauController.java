@@ -62,4 +62,14 @@ public class BureauController {
     public @ResponseBody boolean createOne(@RequestBody Bureau bureau) {
         return bureauDAO.create(bureau);
     }
+
+    @RequestMapping(value = "/count/{id}", method = RequestMethod.GET)
+    public @ResponseBody int countByPlan(@PathVariable String id) {
+        return bureauDAO.countByPlan(Long.valueOf(id));
+    }
+
+    @RequestMapping(value = "/count/", method = RequestMethod.GET)
+    public @ResponseBody int createOne() {
+        return bureauDAO.count();
+    }
 }
